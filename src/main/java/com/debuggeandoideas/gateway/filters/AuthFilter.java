@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 public class AuthFilter implements GatewayFilter {
     private final WebClient webClient;
 
-    private static final String AUTH_VALIDATE_URI = "http://localhost:3030/auth-server/auth/jwt";
+    private static final String AUTH_VALIDATE_URI = "http://ms-auth:3030/auth-server/auth/jwt";
     private static final String ACCESS_TOKEN_HEADER_NAME = "accessToken";
 
     public AuthFilter(){
@@ -42,6 +42,8 @@ public class AuthFilter implements GatewayFilter {
             return this.onError(exchange);
         }
         final var token = chunk[1];
+
+        System.out.println("Valid token");
 
         return this.webClient.
                 post()
